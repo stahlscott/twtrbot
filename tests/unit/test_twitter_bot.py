@@ -50,3 +50,9 @@ class TestTwitterBot():
         text = self.twitter_bot._get_congress_vote()
         assert_that(text, not_none())
         print(text)
+
+    def test_tweepy_api(self):
+        self.setUp()
+        text = self.twitter_bot._tweet('test')
+        self.api.update_status.assert_called_once_with('test')
+        assert_that(text, equal_to('test'))

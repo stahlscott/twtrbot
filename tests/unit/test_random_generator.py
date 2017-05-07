@@ -31,7 +31,7 @@ class TestRandomGenerator():
     def test_get_quest(self):
         self.setUp()
         quest = self.generator.quest_log()
-        assert_that(quest, has_length(4))
+        assert_that(quest, has_length(3))
 
     def test_get_vote(self):
         self.setUp()
