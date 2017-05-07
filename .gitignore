@@ -3,6 +3,8 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *$py.class
+*.pyc
+.DS_store
 
 # C extensions
 *.so

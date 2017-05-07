@@ -30,9 +30,10 @@ class RandomGenerator():
         total_num = randint(2, max_num) * 2
         in_progress_num = randint(1, total_num)
         quest_progress = str(in_progress_num) + '/' + str(total_num)
+        completed = ' (COMPLETED)' if total_num == in_progress_num else ''
 
         rand_int = randint(1, 10)
-        prefix = choice(QUEST_LOG_NOUN_PREFIX) + ' ' if 4 <= rand_int <= 7 else ''
+        prefix = choice(QUEST_LOG_NOUN_PREFIX) + ' ' if 4 <= rand_int <= 8 else ''
 
         if rand_int > 5:
             noun = prefix + choice(QUEST_LOG_NOUN)
@@ -41,8 +42,8 @@ class RandomGenerator():
             noun = prefix + choice(QUEST_LOG_NOUN) + 's'  # pluralize
             action = choice(QUEST_LOG_ACTIONS)
 
-        return [quest_progress, noun, action]
+        return [quest_progress, noun, action, completed]
 
     def congress_vote(self):
         return [choice(CONGRESS_TITLE), choice(CONGRESS_LAST_NAME), choice(CONGRESS_PARTY), choice(CONGRESS_STATE),
-                choice(CONGRESS_VOTE), str(randint(1, 999)), choice(CONGRESS_VERB), choice(CONGRESS_NOUN)]
+                choice(CONGRESS_VOTE), str(randint(1, 5999)), choice(CONGRESS_VERB), choice(CONGRESS_NOUN)]

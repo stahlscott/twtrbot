@@ -6,63 +6,63 @@ class TwitterBot():
         self._api = api
         self._generator = RandomGenerator()
 
-    def _tweet(self, text):
+    def tweet(self, text):
         # TODO Catch exceptions
         self._api.update_status(text)
         return text
 
-    def _get_basic_text(self, text):
+    def get_basic_text(self, text):
         return text or 'Hello World!'
 
     def tweet_basic(self, text=None):
-        text = self._get_basic_text(text=text)
-        return self._tweet(text)
+        text = self.get_basic_text(text=text)
+        return self.tweet(text)
 
-    def _get_hello_random(self):
+    def get_hello_random(self):
         hello_random = self._generator.hello_random()
         return ' '.join(hello_random) + '!'.strip()
 
     def tweet_random(self):
-        hello_random = self._get_hello_random()
-        return self._tweet(text=hello_random)
+        hello_random = self.get_hello_random()
+        return self.tweet(text=hello_random)
 
-    def _get_lucas_name(self):
+    def get_lucas_name(self):
         name = self._generator.lucas_name()
         return ' '.join(name).strip()
 
     def tweet_lucas_name(self):
-        lucas_name = self._get_lucas_name()
-        return self._tweet(text=lucas_name)
+        lucas_name = self.get_lucas_name()
+        return self.tweet(text=lucas_name)
 
-    def _get_screensaver(self):
+    def get_screensaver(self):
         screensaver = self._generator.screensaver()
         return ' '.join(screensaver).strip()
 
     def tweet_screensaver(self):
-        screensaver = self._get_screensaver()
-        return self._tweet(screensaver)
+        screensaver = self.get_screensaver()
+        return self.tweet(screensaver)
 
-    def _get_prince_song(self):
+    def get_prince_song(self):
         prince_song = self._generator.prince_song()
         return ' '.join(prince_song).strip()
 
     def tweet_prince_song(self):
-        prince_song = self._get_prince_song()
-        return self._tweet(prince_song)
+        prince_song = self.get_prince_song()
+        return self.tweet(prince_song)
 
-    def _get_quest_progress(self):
+    def get_quest_progress(self):
         quest = self._generator.quest_log()
         return ' '.join(quest).strip()
 
     def tweet_quest_progress(self):
-        quest_progress = self._get_quest_progress()
-        return self._tweet(quest_progress)
+        quest_progress = self.get_quest_progress()
+        return self.tweet(quest_progress)
 
-    def _get_congress_vote(self):
+    def get_congress_vote(self):
         vote = self._generator.congress_vote()
         formatted_vote = '{0} {1} ({2}-{3}) votes {4} on HR {5} to {6} {7}'.format(*vote)
         return formatted_vote.strip()
 
     def tweet_congress_vote(self):
-        vote = self._get_congress_vote()
-        return self._tweet(vote)
+        vote = self.get_congress_vote()
+        return self.tweet(vote)

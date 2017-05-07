@@ -11,48 +11,48 @@ class TestTwitterBot():
 
     def test_get_text_none(self):
         self.setUp()
-        text = self.twitter_bot._get_basic_text(text=None)
+        text = self.twitter_bot.get_basic_text(text=None)
         expected_text = 'Hello World!'
         assert_that(text, equal_to(expected_text))
 
     def test_hello_random(self):
         self.setUp()
-        text = self.twitter_bot._get_hello_random()
+        text = self.twitter_bot.get_hello_random()
         assert_that(text, not_none())
         print(text)
 
     def test_lucas_name(self):
         self.setUp()
-        text = self.twitter_bot._get_lucas_name()
+        text = self.twitter_bot.get_lucas_name()
         assert_that(text, not_none())
         print(text)
 
     def test_screensaver(self):
         self.setUp()
-        text = self.twitter_bot._get_screensaver()
+        text = self.twitter_bot.get_screensaver()
         assert_that(text, not_none())
         print(text)
 
     def test_prince_song(self):
         self.setUp()
-        text = self.twitter_bot._get_prince_song()
+        text = self.twitter_bot.get_prince_song()
         assert_that(text, not_none())
         print(text)
 
     def test_quest_log(self):
         self.setUp()
-        text = self.twitter_bot._get_quest_progress()
+        text = self.twitter_bot.get_quest_progress()
         assert_that(text, not_none())
         print(text)
 
     def test_congress_vote(self):
         self.setUp()
-        text = self.twitter_bot._get_congress_vote()
+        text = self.twitter_bot.get_congress_vote()
         assert_that(text, not_none())
         print(text)
 
     def test_tweepy_api(self):
         self.setUp()
-        text = self.twitter_bot._tweet('test')
+        text = self.twitter_bot.tweet('test')
         self.api.update_status.assert_called_once_with('test')
         assert_that(text, equal_to('test'))
