@@ -1,5 +1,4 @@
 import logging
-
 import tweepy
 
 from app.twitter_bot import TwitterBot

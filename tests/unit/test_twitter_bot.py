@@ -20,3 +20,8 @@ class TestTwitterBot():
         text = self.twitter_bot._get_hello_random()
         expected_text = 'Hello '
         assert_that(text, contains_string(expected_text))
+
+    def test_lucas_name(self):
+        self.setUp()
+        text = self.twitter_bot._get_lucas_name()
+        assert_that(text, not_none())
