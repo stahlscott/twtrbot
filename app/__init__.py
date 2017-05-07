@@ -1,22 +1,21 @@
 from collections import namedtuple
 from flask import Flask, render_template
 import logging
+import os
 import tweepy
 
-import config
 from app.twitter_bot import TwitterBot
 
 app = Flask(__name__)
 
-app.config.from_object('config')
-app.secret_key = 'secret_key'
+app.secret_key = os.environ.get('SECRET_KEY')
 
 TweetTuple = namedtuple('TweetTuple', ['text', 'img', 'handle'])
 
 
 def tweepy_api():
-    auth = tweepy.OAuthHandler(config.CONSUMER_KEY, config.CONSUMER_SECRET)
-    auth.set_access_token(config.ACCESS_KEY, config.ACCESS_SECRET)
+    auth = tweepy.OAuthHandler(os.environ.get('CONSUMER_KEY'), os.environ.get('CONSUMER_SECRET'))
+    auth.set_access_token(os.environ.get('ACCESS_KEY'), os.environ.get('ACCESS_SECRET'))
     return tweepy.API(auth)
 
 
