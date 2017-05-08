@@ -1,11 +1,11 @@
 from hamcrest import *
 
-from app.random_generator import RandomGenerator, NOUNS
+from app.daos.random_phrase_dao import RandomPhraseDAO, NOUNS
 
 
-class TestRandomGenerator():
+class TestRandomPhraseDAO():
     def setUp(self):
-        self.generator = RandomGenerator()
+        self.generator = RandomPhraseDAO()
 
     def test_get_noun(self):
         self.setUp()

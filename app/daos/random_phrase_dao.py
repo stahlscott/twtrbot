@@ -2,7 +2,7 @@ from random import choice, randint
 from app.generator_data import *
 
 
-class RandomGenerator():
+class RandomPhraseDAO():
     def hello_random(self):
         return [choice(GREETINGS), choice(NOUNS)]
 

@@ -1,10 +1,10 @@
-from app.random_generator import RandomGenerator
+from app.daos.random_phrase_dao import RandomPhraseDAO
 
 
-class TwitterBot():
-    def __init__(self, api):
+class TwitterBotService():
+    def __init__(self, api, dao):
         self._api = api
-        self._generator = RandomGenerator()
+        self._dao = dao
 
     def tweet(self, text):
         # TODO Catch exceptions
@@ -19,7 +19,7 @@ class TwitterBot():
         return self.tweet(text)
 
     def get_hello_random(self):
-        hello_random = self._generator.hello_random()
+        hello_random = self._dao.hello_random()
         return ' '.join(hello_random) + '!'.strip()
 
     def tweet_random(self):
@@ -27,7 +27,7 @@ class TwitterBot():
         return self.tweet(text=hello_random)
 
     def get_lucas_name(self):
-        name = self._generator.lucas_name()
+        name = self._dao.lucas_name()
         return ' '.join(name).strip()
 
     def tweet_lucas_name(self):
@@ -35,7 +35,7 @@ class TwitterBot():
         return self.tweet(text=lucas_name)
 
     def get_screensaver(self):
-        screensaver = self._generator.screensaver()
+        screensaver = self._dao.screensaver()
         return ' '.join(screensaver).strip()
 
     def tweet_screensaver(self):
@@ -43,7 +43,7 @@ class TwitterBot():
         return self.tweet(screensaver)
 
     def get_prince_song(self):
-        prince_song = self._generator.prince_song()
+        prince_song = self._dao.prince_song()
         return ' '.join(prince_song).strip()
 
     def tweet_prince_song(self):
@@ -51,7 +51,7 @@ class TwitterBot():
         return self.tweet(prince_song)
 
     def get_quest_progress(self):
-        quest = self._generator.quest_log()
+        quest = self._dao.quest_log()
         return ' '.join(quest).strip()
 
     def tweet_quest_progress(self):
@@ -59,7 +59,7 @@ class TwitterBot():
         return self.tweet(quest_progress)
 
     def get_congress_vote(self):
-        vote = self._generator.congress_vote()
+        vote = self._dao.congress_vote()
         formatted_vote = '{0} {1} ({2}-{3}) votes {4} on HR {5} to {6} {7}'.format(*vote)
         return formatted_vote.strip()
 

@@ -1,3 +1,6 @@
+# TODO Move to db models
+
+
 # hello world generator
 GREETINGS = ('Hello', 'Greetings', 'Salutations', 'Bonjour', 'Aloha', 'Hola', 'Hallo', 'Salaam', 'Shalom')
 NOUNS = ('World', 'Globe', 'Universe', 'Galaxy', 'La Terre', 'La Tierra')
@@ -19,11 +22,11 @@ LUCAS_LAST_NAMES = ('Blayzar', 'Goldstein', 'Maggmarr', 'Ethnicstereotype', 'Sta
 SCREENSAVER_DESCRIPTORS = ('Flying', 'Psychedelic', 'Maze of', 'The Matrix, but with', 'Fading', '3D', 'Spinning',
                            'Floating', 'Speeding', 'Vaporwave', 'Lisa Frank-style', 'Bouncing', 'Scrolling',
                            'Swirling', 'Serene', 'Meditative', 'Randomly Generated', '8-Bit', 'Wavy', 'Crawling',
-                           'Dizzying', 'Trippy', 'Repeating', 'Speedy', 'Rainbow')
+                           'Dizzying', 'Trippy', 'Repeating', 'Speedy', 'Rainbow', 'Slowly Loading')
 SCREENSAVER_NOUNS = ('Toasters', 'Bubbles', 'Cows', 'Squares', 'Geometric Things', 'Marquee Comic Sans Text',
                      'Warp Fields', 'Dolphins', 'Brick Walls', 'Emoji', 'Windows Logos', 'Tux the Penguin', 'Lines',
                      'Squigglies', 'Triangles', 'Star Trek Quotes', 'Family Pictures', 'Nude Pix', 'Flames', 'Skulls',
-                     'Computer Dogs Taking Over Your Screen')
+                     'Computer Dogs Taking Over Your Screen', 'Memez')
 
 # prince song generator
 PRINCE_PREFIXES = ('U Want My', 'U Want', 'Time 4', 'U R My', '1 And Only', 'I Want Ur', 'Gimme That', 'Get',
@@ -31,7 +34,7 @@ PRINCE_PREFIXES = ('U Want My', 'U Want', 'Time 4', 'U R My', '1 And Only', 'I W
 PRINCE_ADJECTIVES = ('Electric', 'Neon', 'Purple', 'Bat', 'Wet', 'Soft', 'Blue', 'Black', 'Cyber', 'Funky', 'Party',
                      'Downtown', 'Slow', 'Paisley', 'Mellow', 'Loose', 'Cherry', 'Erotic', 'Broken', 'Dirty', 'Hot',
                      'Diamond', 'Nite')
-PRINCE_NOUNS = ('Fuck', 'City', 'God', 'Bitch', 'Bodylogic', 'Levels', 'Sweat', 'Cum', 'Thieves', 'Sexxx', 'Jack Off',
+PRINCE_NOUNS = ('Fuck', 'City', 'God', 'Bitch', 'Bodylogic', 'Levels', 'Sweat', 'Cum', 'Temple', 'Sexxx', 'Jack Off',
                 'Pussy', 'Computer', 'Motorcycle', 'Lover', 'Grind', 'M.F.', 'Slave', 'Romance', 'Machine', 'Mama',
                 'Night', 'Baby', 'Cream', 'Dance', 'Bang', 'Street', 'Chains', 'City', 'Kiss', 'Mistress', 'Xperience',
                 'Generation', 'Dick', 'Pearls', 'Orgy', 'Jesus')
