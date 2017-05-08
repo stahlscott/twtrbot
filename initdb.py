@@ -1,9 +1,8 @@
-# TODO Move to db models
-
-
-# hello world generator
-GREETINGS = ('Hello', 'Greetings', 'Salutations', 'Bonjour', 'Aloha', 'Hola', 'Hallo', 'Salaam', 'Shalom')
-NOUNS = ('World', 'Globe', 'Universe', 'Galaxy', 'La Terre', 'La Tierra')
+import app
+from app.models.models import *
+from app.daos.phrase_dao import PhraseDAO
+from app.daos.component_type_dao import ComponentTypeDAO
+from app.daos.component_dao import ComponentDAO
 
 # george lucas-ass name generator
 LUCAS_FIRST_NAMES = ('Darth', 'Lord', 'Sith Lord', 'Master', 'Jedi Master', 'Jar Jar', 'Fingo', 'Bango', 'Blinko',
@@ -84,3 +83,79 @@ CONGRESS_NOUN = ('Your Uterus', 'The World', 'The Children', 'Our Children', 'Th
                  'The Promise', 'Everything Good', 'The Boys In Blue', 'The Alt Right', 'Socialism', 'H.E.A.L.T.H.',
                  'Job Creators', 'Real Taxpayers', 'The Vote', 'Birth Control Access', 'Any Remaining Muslims',
                  'Subprime Mortgages', 'Confederate Memorials', 'The Troops')
+
+
+def initdb():
+    get_or_create_phrase = PhraseDAO(db).get_or_create_phrase
+    get_or_create_component_type = ComponentTypeDAO(db).get_or_create_component_type
+    get_or_create_component = ComponentDAO(db).get_or_create_component
+    app.db.create_all()
+
+    lucas_name = get_or_create_phrase('GeorgeLucasAssNames')
+    prince_song = get_or_create_phrase('PrinceVault')
+    screensaver = get_or_create_phrase('NewScreensavers')
+    quest_progress = get_or_create_phrase('QuestProgress')
+    congressional_vote = get_or_create_phrase('CongressVotes')
+
+    lucas_first_names = get_or_create_component_type(name='LucasFirstNames', phrase_id=lucas_name.id)
+    lucas_last_names = get_or_create_component_type(name='LucasLastNames', phrase_id=lucas_name.id)
+    prince_prefixes = get_or_create_component_type(name='PrincePrefixes', phrase_id=prince_song.id)
+    prince_adjectives = get_or_create_component_type(name='PrinceAdjectives', phrase_id=prince_song.id)
+    prince_nouns = get_or_create_component_type(name='PrinceNouns', phrase_id=prince_song.id)
+    prince_suffixes = get_or_create_component_type(name='PrinceSuffixes', phrase_id=prince_song.id)
+    screensaver_descriptions = get_or_create_component_type(name='ScreensaverDescriptions', phrase_id=screensaver.id)
+    screensaver_nouns = get_or_create_component_type(name='ScreensaverNouns', phrase_id=screensaver.id)
+    quest_log_prefix = get_or_create_component_type(name='QuestLogPrefix', phrase_id=quest_progress.id)
+    quest_log_noun = get_or_create_component_type(name='QuestLogNoun', phrase_id=quest_progress.id)
+    quest_log_parts = get_or_create_component_type(name='QuestLogParts', phrase_id=quest_progress.id)
+    quest_log_actions = get_or_create_component_type(name='QuestLogActions', phrase_id=quest_progress.id)
+    congress_title = get_or_create_component_type(name='CongressTitle', phrase_id=congressional_vote.id)
+    congress_last_name = get_or_create_component_type(name='CongressLastName', phrase_id=congressional_vote.id)
+    congress_party = get_or_create_component_type(name='CongressParty', phrase_id=congressional_vote.id)
+    congress_state = get_or_create_component_type(name='CongressState', phrase_id=congressional_vote.id)
+    congress_vote = get_or_create_component_type(name='CongressVote', phrase_id=congressional_vote.id)
+    congress_verb = get_or_create_component_type(name='CongressVerb', phrase_id=congressional_vote.id)
+    congress_noun = get_or_create_component_type(name='CongressNoun', phrase_id=congressional_vote.id)
+
+    for component in LUCAS_FIRST_NAMES:
+        component_obj = get_or_create_component(word=component, component_type_id=lucas_first_names.id)
+    for component in LUCAS_LAST_NAMES:
+        component_obj = get_or_create_component(word=component, component_type_id=lucas_last_names.id)
+
+    for component in PRINCE_PREFIXES:
+        component_obj = get_or_create_component(word=component, component_type_id=prince_prefixes.id)
+    for component in PRINCE_ADJECTIVES:
+        component_obj = get_or_create_component(word=component, component_type_id=prince_adjectives.id)
+    for component in PRINCE_NOUNS:
+        component_obj = get_or_create_component(word=component, component_type_id=prince_nouns.id)
+    for component in PRINCE_SUFFIXES:
+        component_obj = get_or_create_component(word=component, component_type_id=prince_suffixes.id)
+
+    for component in SCREENSAVER_DESCRIPTORS:
+        component_obj = get_or_create_component(word=component, component_type_id=screensaver_descriptions.id)
+    for component in SCREENSAVER_NOUNS:
+        component_obj = get_or_create_component(word=component, component_type_id=screensaver_nouns.id)
+
+    for component in QUEST_LOG_NOUN_PREFIX:
+        component_obj = get_or_create_component(word=component, component_type_id=quest_log_prefix.id)
+    for component in QUEST_LOG_NOUN:
+        component_obj = get_or_create_component(word=component, component_type_id=quest_log_noun.id)
+    for component in QUEST_LOG_COLLECTED_PARTS:
+        component_obj = get_or_create_component(word=component, component_type_id=quest_log_parts.id)
+    for component in QUEST_LOG_ACTIONS:
+        component_obj = get_or_create_component(word=component, component_type_id=quest_log_actions.id)
+
+    for component in CONGRESS_TITLE:
+        component_obj = get_or_create_component(word=component, component_type_id=congress_title.id)
+    for component in CONGRESS_LAST_NAME:
+        component_obj = get_or_create_component(word=component, component_type_id=congress_last_name.id)
+    for component in CONGRESS_PARTY:
+        component_obj = get_or_create_component(word=component, component_type_id=congress_party.id)
+    for component in CONGRESS_STATE:
+        component_obj = get_or_create_component(word=component, component_type_id=congress_state.id)
+    for component in CONGRESS_VOTE:
+        component_obj = get_or_create_component(word=component, component_type_id=congress_vote.id)
+    for component in CONGRESS_VERB:
+        component_obj = get_or_create_component(word=component, component_type_id=congress_verb.id)
+    for component in CONGRESS_NOUN:
+        component_obj = get_or_create_component(word=component, component_type_id=congress_noun.id)

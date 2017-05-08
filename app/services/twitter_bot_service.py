@@ -1,10 +1,10 @@
-from app.daos.random_phrase_dao import RandomPhraseDAO
+from app import RandomPhraseService
 
 
 class TwitterBotService():
-    def __init__(self, api, dao):
+    def __init__(self, api, db):
         self._api = api
-        self._dao = dao
+        self._phrase_service = RandomPhraseService(db=db)
 
     def tweet(self, text):
         # TODO Catch exceptions
@@ -19,7 +19,7 @@ class TwitterBotService():
         return self.tweet(text)
 
     def get_hello_random(self):
-        hello_random = self._dao.hello_random()
+        hello_random = self._phrase_service.hello_random()
         return ' '.join(hello_random) + '!'.strip()
 
     def tweet_random(self):
@@ -27,7 +27,7 @@ class TwitterBotService():
         return self.tweet(text=hello_random)
 
     def get_lucas_name(self):
-        name = self._dao.lucas_name()
+        name = self._phrase_service.lucas_name()
         return ' '.join(name).strip()
 
     def tweet_lucas_name(self):
@@ -35,7 +35,7 @@ class TwitterBotService():
         return self.tweet(text=lucas_name)
 
     def get_screensaver(self):
-        screensaver = self._dao.screensaver()
+        screensaver = self._phrase_service.screensaver()
         return ' '.join(screensaver).strip()
 
     def tweet_screensaver(self):
@@ -43,7 +43,7 @@ class TwitterBotService():
         return self.tweet(screensaver)
 
     def get_prince_song(self):
-        prince_song = self._dao.prince_song()
+        prince_song = self._phrase_service.prince_song()
         return ' '.join(prince_song).strip()
 
     def tweet_prince_song(self):
@@ -51,7 +51,7 @@ class TwitterBotService():
         return self.tweet(prince_song)
 
     def get_quest_progress(self):
-        quest = self._dao.quest_log()
+        quest = self._phrase_service.quest_log()
         return ' '.join(quest).strip()
 
     def tweet_quest_progress(self):
@@ -59,7 +59,7 @@ class TwitterBotService():
         return self.tweet(quest_progress)
 
     def get_congress_vote(self):
-        vote = self._dao.congress_vote()
+        vote = self._phrase_service.congress_vote()
         formatted_vote = '{0} {1} ({2}-{3}) votes {4} on HR {5} to {6} {7}'.format(*vote)
         return formatted_vote.strip()
 

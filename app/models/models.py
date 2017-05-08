@@ -14,11 +14,11 @@ class Phrase(db.Model):
 
 class ComponentType(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    phrase_type_id = db.Column(db.Integer, db.ForeignKey('phrase.id'), nullable=False)
-    name = db.Column(db.String(50), nullable=False)
+    phrase_id = db.Column(db.Integer, db.ForeignKey('phrase.id'), nullable=False)
+    name = db.Column(db.String(50), unique=True, nullable=False)
 
-    def __init__(self, phrase_type_id, name):
-        self.phrase_type_id = phrase_type_id
+    def __init__(self, phrase_id, name):
+        self.phrase_id = phrase_id
         self.name = name
 
     def __repr__(self):
@@ -30,8 +30,8 @@ class Component(db.Model):
     component_type_id = db.Column(db.Integer, db.ForeignKey('component_type.id'), nullable=False)
     word = db.Column(db.String(140), nullable=False)
 
-    def __init__(self, component_type, word):
-        self.component_type = component_type
+    def __init__(self, component_type_id, word):
+        self.component_type_id = component_type_id
         self.word = word
 
     def __repr__(self):

@@ -1,12 +1,10 @@
-from collections import namedtuple
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
 import logging
 import os
-import tweepy
+from collections import namedtuple
 
-from app.services.twitter_bot_service import TwitterBotService
-from app.daos.random_phrase_dao import RandomPhraseDAO
+import tweepy
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
@@ -15,6 +13,9 @@ app.secret_key = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
+
+from app.services.random_phrase_service import RandomPhraseService
+from app.services.twitter_bot_service import TwitterBotService
 
 TweetTuple = namedtuple('TweetTuple', ['text', 'img', 'handle'])
 
@@ -34,7 +35,7 @@ def send_tweet(twitter_bot):
 
 def run():
     api = tweepy_api()
-    twitter_bot = TwitterBotService(api=api, dao=RandomPhraseDAO())
+    twitter_bot = TwitterBotService(api=api)
     logger = logging.getLogger('app.run')
 
     for _ in range(1):  # TODO Make it run forever?
@@ -42,12 +43,9 @@ def run():
         logger.debug('Tweeted ur phrase: ' + text)
 
 
-def init_db():
-    db.create_all()
-
 @app.route('/')
 def twtrbot():
-    twitter_bot = TwitterBotService(api=None, dao=RandomPhraseDAO())
+    twitter_bot = TwitterBotService(api=None, db=db)
     lucas_name = TweetTuple(text=twitter_bot.get_lucas_name(), handle='@GeorgeLucasAssNames',
                             img='/static/img/lucas.png')
     prince_song = TweetTuple(text=twitter_bot.get_prince_song(), handle='@PrinceVault',

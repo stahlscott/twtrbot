@@ -3,7 +3,8 @@ import sys
 
 
 if __name__ == "__main__":
-    if sys.argv == 'initdb':
-        app.init_db()
+    if sys.argv[1] == 'initdb':
+        from initdb import initdb
+        initdb()
     else:
         app.run()

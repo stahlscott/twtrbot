@@ -1,14 +1,16 @@
 from hamcrest import *
 from mock import MagicMock
 
+from app.services.random_phrase_service import RandomPhraseService
 from app.services.twitter_bot_service import TwitterBotService
-from app.daos.random_phrase_dao import RandomPhraseDAO
+
 
 class TestTwitterBot():
     def setUp(self):
         self.api = MagicMock()
-        self.dao = RandomPhraseDAO()
-        self.twitter_bot = TwitterBotService(api=self.api, dao=self.dao)
+        self.db = MagicMock()
+        self.dao = RandomPhraseService(db=self.db)
+        self.twitter_bot = TwitterBotService(api=self.api, db=self.db)
 
     def test_get_text_none(self):
         self.setUp()
