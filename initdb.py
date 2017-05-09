@@ -1,5 +1,5 @@
-import app
-from app.models.models import *
+from app import *
+from app.models import *
 from app.daos.phrase_dao import PhraseDAO
 from app.daos.component_type_dao import ComponentTypeDAO
 from app.daos.component_dao import ComponentDAO
@@ -86,10 +86,11 @@ CONGRESS_NOUN = ('Your Uterus', 'The World', 'The Children', 'Our Children', 'Th
 
 
 def initdb():
+    app.db.create_all()
+
     get_or_create_phrase = PhraseDAO(db).get_or_create_phrase
     get_or_create_component_type = ComponentTypeDAO(db).get_or_create_component_type
     get_or_create_component = ComponentDAO(db).get_or_create_component
-    app.db.create_all()
 
     lucas_name = get_or_create_phrase(name='LucasName', display_name='GeorgeLucasAssNames')
     prince_song = get_or_create_phrase(name='PrinceSong', display_name='PrinceVault')

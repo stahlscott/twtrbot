@@ -1,4 +1,4 @@
-from app.models.models import Component
+from app.models.component import Component
 
 
 class ComponentDAO():

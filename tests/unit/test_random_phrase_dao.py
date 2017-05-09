@@ -6,8 +6,10 @@ from app.services.random_phrase_service import RandomPhraseService
 
 class TestRandomPhraseDAO():
     def setUp(self):
-        self.db = MagicMock()
-        self.generator = RandomPhraseService(self.db)
+        self.component_type_dao = MagicMock()
+        self.component_dao = MagicMock()
+        self.generator = RandomPhraseService(component_type_dao=self.component_type_dao,
+                                             component_dao=self.component_dao)
 
     # TODO Rewrite working tests
     #

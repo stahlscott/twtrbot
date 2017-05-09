@@ -8,9 +8,13 @@ from app.services.twitter_bot_service import TwitterBotService
 class TestTwitterBot():
     def setUp(self):
         self.api = MagicMock()
-        self.db = MagicMock()
-        self.dao = RandomPhraseService(db=self.db)
-        self.twitter_bot = TwitterBotService(api=self.api, db=self.db)
+        self.component_type_dao = MagicMock()
+        self.component_dao = MagicMock()
+        self.generator = RandomPhraseService(component_type_dao=self.component_type_dao,
+                                             component_dao=self.component_dao)
+        self.twitter_bot = TwitterBotService(component_type_dao=self.component_type_dao,
+                                             component_dao=self.component_dao,
+                                             api=self.api)
 
     # TODO Rewrite working tests
     #

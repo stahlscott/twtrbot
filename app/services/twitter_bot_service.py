@@ -1,4 +1,4 @@
-from app import RandomPhraseService
+from app.services.random_phrase_service import RandomPhraseService
 
 
 class TwitterBotService():
