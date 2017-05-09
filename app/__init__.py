@@ -5,15 +5,18 @@ import tweepy
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
+from app.services.random_phrase_service import RandomPhraseService
+from app.services.twitter_bot_service import TwitterBotService
+
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+from app.daos.component_dao import ComponentDAO
+from app.daos.component_type_dao import ComponentTypeDAO
 from app.daos.phrase_dao import PhraseDAO
-from app.services.random_phrase_service import RandomPhraseService
-from app.services.twitter_bot_service import TwitterBotService
 
 TweetTuple = namedtuple('TweetTuple', ['text', 'img', 'handle'])
 
@@ -26,16 +29,18 @@ def tweepy_api():
 
 def run():
     api = tweepy_api()
-    twitter_bot = TwitterBotService(api=api, db=db)
+    twitter_bot_service = TwitterBotService(component_type_dao=ComponentTypeDAO(db=db),
+                                            component_dao=ComponentDAO(db=db),
+                                            api=api)
 
-    for _ in range(1):  # TODO Make it run forever?
-        text = twitter_bot.tweet_prince_song()
-        app.logger.debug('Tweeted phrase: ' + text)
+    text = twitter_bot_service.tweet_prince_song()
+    app.logger.debug('Tweeted phrase: ' + text)
 
 
 @app.route('/')
 def twtrbot():
-    twitter_bot_service = TwitterBotService(api=None, db=db)
+    twitter_bot_service = TwitterBotService(component_type_dao=ComponentTypeDAO(db=db),
+                                            component_dao=ComponentDAO(db=db))
     phrase_dao = PhraseDAO(db=db)
     lucas_name = TweetTuple(text=twitter_bot_service.get_lucas_name(),
                             handle='@' + phrase_dao.get_phrase_by_name('LucasName').display_name,

@@ -1,15 +1,10 @@
 from random import choice, randint
 
-from app.daos.phrase_dao import PhraseDAO
-from app.daos.component_type_dao import ComponentTypeDAO
-from app.daos.component_dao import ComponentDAO
-
 
 class RandomPhraseService():
-    def __init__(self, db):
-        self._phrase_dao = PhraseDAO(db=db)
-        self._component_type_dao = ComponentTypeDAO(db=db)
-        self._component_dao = ComponentDAO(db=db)
+    def __init__(self, component_type_dao, component_dao):
+        self._component_type_dao = component_type_dao
+        self._component_dao = component_type_dao
 
     def lucas_name(self):
         first_name = choice(self._component_type_dao.get_component_type_by_name('LucasFirstName').components).word

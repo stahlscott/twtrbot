@@ -2,9 +2,9 @@ from app import RandomPhraseService
 
 
 class TwitterBotService():
-    def __init__(self, api, db):
+    def __init__(self, component_type_dao, component_dao, api=None):
+        self._phrase_service = RandomPhraseService(component_type_dao, component_dao)
         self._api = api
-        self._phrase_service = RandomPhraseService(db=db)
 
     def tweet(self, text):
         # TODO Catch exceptions
