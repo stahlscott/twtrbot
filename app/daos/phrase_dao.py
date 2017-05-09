@@ -1,5 +1,6 @@
 from app.models.models import Phrase
 
+
 class PhraseDAO():
     def __init__(self, db=None):
         self.db = db

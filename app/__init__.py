@@ -1,4 +1,3 @@
-import logging
 import os
 from collections import namedtuple
 
@@ -28,30 +27,29 @@ def tweepy_api():
 def run():
     api = tweepy_api()
     twitter_bot = TwitterBotService(api=api, db=db)
-    logger = logging.getLogger('app.run')
 
     for _ in range(1):  # TODO Make it run forever?
         text = twitter_bot.tweet_prince_song()
-        logger.debug('Tweeted ur phrase: ' + text)
+        app.logger.debug('Tweeted phrase: ' + text)
 
 
 @app.route('/')
 def twtrbot():
-    twitter_bot = TwitterBotService(api=None, db=db)
+    twitter_bot_service = TwitterBotService(api=None, db=db)
     phrase_dao = PhraseDAO(db=db)
-    lucas_name = TweetTuple(text=twitter_bot.get_lucas_name(),
+    lucas_name = TweetTuple(text=twitter_bot_service.get_lucas_name(),
                             handle='@' + phrase_dao.get_phrase_by_name('LucasName').display_name,
                             img='/static/img/lucas.png')
-    prince_song = TweetTuple(text=twitter_bot.get_prince_song(),
+    prince_song = TweetTuple(text=twitter_bot_service.get_prince_song(),
                              handle='@' + phrase_dao.get_phrase_by_name('PrinceSong').display_name,
                              img='/static/img/prince.png')
-    screensaver = TweetTuple(text=twitter_bot.get_screensaver(),
+    screensaver = TweetTuple(text=twitter_bot_service.get_screensaver(),
                              handle='@' + phrase_dao.get_phrase_by_name('Screensaver').display_name,
                              img='/static/img/screensaver.png')
-    quest_log = TweetTuple(text=twitter_bot.get_quest_progress(),
+    quest_log = TweetTuple(text=twitter_bot_service.get_quest_progress(),
                            handle='@' + phrase_dao.get_phrase_by_name('QuestLog').display_name,
                            img='/static/img/quest.png')
-    congress_vote = TweetTuple(text=twitter_bot.get_congress_vote(),
+    congress_vote = TweetTuple(text=twitter_bot_service.get_congress_vote(),
                                handle='@' + phrase_dao.get_phrase_by_name('CongressVote').display_name,
                                img='/static/img/vote.png')
 
