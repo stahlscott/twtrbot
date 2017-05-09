@@ -1,4 +1,4 @@
-from app.models.models import ComponentType
+from app.models.component_type import ComponentType
 
 
 class ComponentTypeDAO():

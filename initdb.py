@@ -1,5 +1,4 @@
-import app
-from app.models.models import *
+from app import *
 from app.daos.phrase_dao import PhraseDAO
 from app.daos.component_type_dao import ComponentTypeDAO
 from app.daos.component_dao import ComponentDAO

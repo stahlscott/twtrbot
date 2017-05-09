@@ -1,4 +1,4 @@
-from app.models.models import Phrase
+from app.models.phrase import Phrase
 
 
 class PhraseDAO():
