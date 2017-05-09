@@ -11,83 +11,60 @@ class RandomPhraseService():
         self._component_type_dao = ComponentTypeDAO(db=db)
         self._component_dao = ComponentDAO(db=db)
 
-    def hello_random(self):
-        return ['Hello', 'World']
-        # return [choice(GREETINGS), choice(NOUNS)]
-
     def lucas_name(self):
-        first_name_type_id = self._component_type_dao.get_component_type_by_name('LucasFirstNames').id
-        last_name_type_id = self._component_type_dao.get_component_type_by_name('LucasLastNames').id
-        first_name = choice(self._component_dao.get_all_components_by_type_id(first_name_type_id)).word
-        last_name = choice(self._component_dao.get_all_components_by_type_id(last_name_type_id)).word
+        first_name = choice(self._component_type_dao.get_component_type_by_name('LucasFirstName').components).word
+        last_name = choice(self._component_type_dao.get_component_type_by_name('LucasLastName').components).word
         return [first_name, last_name]
 
     def screensaver(self):
-        ss_descriptor_type_id = self._component_type_dao.get_component_type_by_name('ScreensaverDescriptions').id
-        ss_noun_type_id = self._component_type_dao.get_component_type_by_name('ScreensaverNouns').id
-        ss_descriptor = choice(self._component_dao.get_all_components_by_type_id(ss_descriptor_type_id)).word
-        ss_noun = choice(self._component_dao.get_all_components_by_type_id(ss_noun_type_id)).word
+        ss_descriptor = choice(
+            self._component_type_dao.get_component_type_by_name('ScreensaverDescription').components).word
+        ss_noun = choice(self._component_type_dao.get_component_type_by_name('ScreensaverNoun').components).word
         return [ss_descriptor, ss_noun]
 
     def prince_song(self):
-        rand_int = randint(1, 10)
-        prefix_odds = [1, 2]
-        suffix_odds = [2, 3, 4, 5]
+        rand_int = randint(1, 10)  # roll to determine whether to add prefix, suffix, or both
+        prefix_odds = [1, 2]  # if rolling 1 or 2, include prefix
+        suffix_odds = [2, 3, 4, 5]  # if rolling 2-5, include suffix
 
-        prince_prefix_type_id = self._component_type_dao.get_component_type_by_name('PrincePrefixes').id
-        prince_suffix_type_id = self._component_type_dao.get_component_type_by_name('PrinceSuffixes').id
-        prince_adjective_type_id = self._component_type_dao.get_component_type_by_name('PrinceAdjectives').id
-        prince_noun_type_id = self._component_type_dao.get_component_type_by_name('PrinceNouns').id
-
-        prefix = choice(self._component_dao.get_all_components_by_type_id(prince_prefix_type_id)).word \
+        prefix = choice(self._component_type_dao.get_component_type_by_name('PrincePrefix').components).word \
             if rand_int in prefix_odds else ''
-        suffix = choice(self._component_dao.get_all_components_by_type_id(prince_suffix_type_id)).word \
+        suffix = choice(self._component_type_dao.get_component_type_by_name('PrinceSuffix').components).word \
             if rand_int in suffix_odds else ''
-        adjective = choice(self._component_dao.get_all_components_by_type_id(prince_adjective_type_id)).word
-        noun = choice(self._component_dao.get_all_components_by_type_id(prince_noun_type_id)).word
+        adjective = choice(self._component_type_dao.get_component_type_by_name('PrinceAdjective').components).word
+        noun = choice(self._component_type_dao.get_component_type_by_name('PrinceNoun').components).word
 
         return [prefix, adjective, noun, suffix]
 
     def quest_log(self):
-        max_num = 10
-        total_num = randint(2, max_num) * 2
+        max_num = 10  # random number of things to collect/kill, up to max_num * 2
+        total_num = randint(2, max_num) * 2  # * 2 to keep it an even number
         in_progress_num = randint(1, total_num)
         quest_progress = str(in_progress_num) + '/' + str(total_num)
-        completed = ' (COMPLETED)' if total_num == in_progress_num else ''
+        completed = ' (COMPLETED)' if total_num == in_progress_num else ''  # add COMPLETED if quest complete
 
-        prefix_type_id = self._component_type_dao.get_component_type_by_name('QuestLogPrefix').id
-        noun_type_id = self._component_type_dao.get_component_type_by_name('QuestLogNoun').id
-
-        rand_int = randint(1, 10)
-        prefix = choice(self._component_dao.get_all_components_by_type_id(prefix_type_id)).word \
+        rand_int = randint(1, 10)  # randomize if adding a prefix or not
+        prefix = choice(self._component_type_dao.get_component_type_by_name('QuestLogPrefix').components).word \
                  + ' ' if 4 <= rand_int <= 8 else ''
-        noun = prefix + choice(self._component_dao.get_all_components_by_type_id(noun_type_id)).word
+        noun = prefix + choice(self._component_type_dao.get_component_type_by_name('QuestLogNoun').components).word
 
         if rand_int > 5:
-            parts_type_id = self._component_type_dao.get_component_type_by_name('QuestLogParts').id
-            action = choice(self._component_dao.get_all_components_by_type_id(parts_type_id)).word + ' Collected'
+            action = choice(self._component_type_dao.get_component_type_by_name('QuestLogPart').components).word \
+                     + ' Collected'
         else:
             noun = noun + 's'  # pluralize
-            actions_type_id = self._component_type_dao.get_component_type_by_name('QuestLogActions').id
-            action = choice(self._component_dao.get_all_components_by_type_id(actions_type_id)).word
+            action = choice(self._component_type_dao.get_component_type_by_name('QuestLogAction').components).word
 
         return [quest_progress, noun, action, completed]
 
     def congress_vote(self):
-        title_type_id = self._component_type_dao.get_component_type_by_name('CongressTitle').id
-        last_name_type_id = self._component_type_dao.get_component_type_by_name('CongressLastName').id
-        party_type_id = self._component_type_dao.get_component_type_by_name('CongressParty').id
-        state_type_id = self._component_type_dao.get_component_type_by_name('CongressState').id
-        vote_type_id = self._component_type_dao.get_component_type_by_name('CongressVote').id
-        verb_type_id = self._component_type_dao.get_component_type_by_name('CongressVerb').id
-        noun_type_id = self._component_type_dao.get_component_type_by_name('CongressNoun').id
+        title = choice(self._component_type_dao.get_component_type_by_name('CongressTitle').components).word
+        last_name = choice(self._component_type_dao.get_component_type_by_name('CongressLastName').components).word
+        party = choice(self._component_type_dao.get_component_type_by_name('CongressParty').components).word
+        state = choice(self._component_type_dao.get_component_type_by_name('CongressState').components).word
+        vote = choice(self._component_type_dao.get_component_type_by_name('CongressVote').components).word
+        bill_number = str(randint(1, 5999))
+        verb = choice(self._component_type_dao.get_component_type_by_name('CongressVerb').components).word
+        noun = choice(self._component_type_dao.get_component_type_by_name('CongressNoun').components).word
 
-        title = choice(self._component_dao.get_all_components_by_type_id(title_type_id)).word
-        last_name = choice(self._component_dao.get_all_components_by_type_id(last_name_type_id)).word
-        party = choice(self._component_dao.get_all_components_by_type_id(party_type_id)).word
-        state = choice(self._component_dao.get_all_components_by_type_id(state_type_id)).word
-        vote = choice(self._component_dao.get_all_components_by_type_id(vote_type_id)).word
-        verb = choice(self._component_dao.get_all_components_by_type_id(verb_type_id)).word
-        noun = choice(self._component_dao.get_all_components_by_type_id(noun_type_id)).word
-
-        return [title, last_name, party, state, vote, str(randint(1, 5999)), verb, noun]
+        return [title, last_name, party, state, vote, bill_number, verb, noun]

@@ -9,12 +9,6 @@ class TestRandomPhraseDAO():
         self.db = MagicMock()
         self.generator = RandomPhraseService(self.db)
 
-    # def test_get_noun(self):
-    #     self.setUp()
-    #     hello_random = self.generator.hello_random()
-    #     assert_that(hello_random, has_length(2))
-    #     assert_that(hello_random[1], is_in(NOUNS))
-
     def test_get_lucas_name(self):
         self.setUp()
         lucas_name = self.generator.lucas_name()

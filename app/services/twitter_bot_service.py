@@ -11,21 +11,6 @@ class TwitterBotService():
         self._api.update_status(text)
         return text
 
-    def get_basic_text(self, text):
-        return text or 'Hello World!'
-
-    def tweet_basic(self, text=None):
-        text = self.get_basic_text(text=text)
-        return self.tweet(text)
-
-    def get_hello_random(self):
-        hello_random = self._phrase_service.hello_random()
-        return ' '.join(hello_random) + '!'.strip()
-
-    def tweet_random(self):
-        hello_random = self.get_hello_random()
-        return self.tweet(text=hello_random)
-
     def get_lucas_name(self):
         name = self._phrase_service.lucas_name()
         return ' '.join(name).strip()
