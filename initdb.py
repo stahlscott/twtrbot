@@ -1,8 +1,5 @@
 from app import *
-<<<<<<< HEAD
 from app.models import *
-=======
->>>>>>> 3848a01a7e7be9b22fba78644b5cd0e012730aa3
 from app.daos.phrase_dao import PhraseDAO
 from app.daos.component_type_dao import ComponentTypeDAO
 from app.daos.component_dao import ComponentDAO
